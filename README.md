@@ -14,12 +14,12 @@ Using the website and api documentation given above, we want you to build a proj
 
 We want you thinking about **quality** while you are writing the code. Feel free to add extra verification checks or extra steps to ensure a high standard of quality on the application. 
 
-All interactions with the website must be **Automated** or via the **API**.
+All interactions with the website and api must be **written in code**.
 
 #### Objective
 1. Create a new user via the API
     * Verify the user is created
-2. Login to that account via the GUI
+2. Login as the user via the GUI
     * Verify successful login
 3. Add 3 books to the users collection via the GUI
     * Verify they were added via the GUI
@@ -27,13 +27,13 @@ All interactions with the website must be **Automated** or via the **API**.
     * Verify it was removed
 5. Search for one of the remaining books via the GUI
     * Verify the search results
-6. Clear the search
+6. Clear the searchbox
     * Verify list is correct
-7. Using the api try to delete the user you created in Step 1
+7. Delete your account via the API
     * Verify that you don't have permissions to do that
-8. Generate a Authorization Token for your account
+8. Figure out why you don't have permissions and get permissions - via the API
     * Verify that you are now successfully authorized
-9. Using the api and the Authorization Token delete your account
+9. Delete your account via the API
     * Verify that the account is deleted
 10. Try to login with the user
     * Verify the user fails to login because account doesn't exist
