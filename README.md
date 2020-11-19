@@ -6,8 +6,8 @@
 3. Send us the link to your repo once you have completed the objective
 
 ## Important Links
-2. Use the [Bookstore Application](https://demoqa.com/books)
-3. Use the [Bookstore API Documentation](https://demoqa.com/swagger/)
+1. Use the [Bookstore Application](https://demoqa.com/books)
+2. Use the [Bookstore API Documentation](https://demoqa.com/swagger/)
     
 ### Explanation
 Using the website and api documentation given above, we want you to build a project in Python or Javascript that goes through the following flow:
