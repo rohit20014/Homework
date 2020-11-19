@@ -1,17 +1,20 @@
 # Homework
 
-
-## What you need to know
+## Steps
 1. Fork this repository
+2. Commit & Push your code that completes the objective below to your repo
+3. Send us the link to your repo once you have completed the objective
+
+## Important Links
 2. Use the [Bookstore Application](https://demoqa.com/books)
 3. Use the [Bookstore API Documentation](https://demoqa.com/swagger/)
     
-### Homework Project
+### Explanation
 Using the website and api documentation given above, we want you to build a project in Python or Javascript that goes through the following flow:
 
-All interactions with the website must be **Automated** or via the **API**.
+We want you thinking about **quality** while you are writing the code. Feel free to add extra verification checks or extra steps to ensure a high standard of quality on the application. 
 
-We want you thinking about quality while you are writing the objective. On each step feel free to add extra verifcation steps to ensure that the quality of the application is being tested throughly. You can also add extra steps and verifications as you would on any application that you are testing. 
+All interactions with the website must be **Automated** or via the **API**.
 
 #### Objective
 1. Create an new user via the API
@@ -34,14 +37,3 @@ We want you thinking about quality while you are writing the objective. On each 
   * Verify that the account is deleted
 10. Try to login with the user
   * Verify the user fails to login because account doesn't exist
-
-P.S - On each step you can choose to do extra verification if you feel like it would help 
-
-### The bookstore application has three GUI interfaces
-    - Login Page
-    - User Profile Page
-    - Bookstore Page
-
-### The bookstore has API documentation available at [Bookstore API](https://demoqa.com/swagger/)
-    
-    Example API Call that will get all books currently in the bookstore <https://demoqa.com/BookStore/v1/Books>
