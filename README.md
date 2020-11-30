@@ -1,4 +1,4 @@
-# Homework Assignment (Software Engineer - Automation $ Testing)
+# Homework Assignment (Software Engineer - Automation & Testing)
 
 ## Steps
 1. Fork this repository
