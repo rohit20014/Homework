@@ -5,12 +5,12 @@
 2. Commit & Push your code that completes the objectives below to your newly forked repo
 3. Send us the link to your repo once you have completed the objective
 
-### Explanation
-Using the website and api documentation given above, we want you to build a project in Python or Javascript that completes the following tasks:
-
 ## Links
 1. Use the [Bookstore Application](https://demoqa.com/books)
 2. Use the [Bookstore API Documentation](https://demoqa.com/swagger/)
+
+### Explanation
+Using the Bookstore website and supplied API documentation given, build a project in Python or Javascript that completes the following tasks:
 
 #### Task 1
 Build a testing suite that tests 100% of the [API](https://demoqa.com/swagger/)
