@@ -16,7 +16,9 @@
   - Build a testing suite that give 100% test coverage of the [API](https://demoqa.com/swagger/)
 
 #### Task 2
-  - Build a testing suite that tests the front end application of the [Bookstore](https://demoqa.com/books)
+  - Build a testing suite that tests the front end application of the [Bookstore](https://demoqa.com/books).
+  
+Feel free to use the API to help drive some of the UI tests.
 
 We want you thinking about **quality** while you are writing the code. Feel free to add extra verification checks or extra steps to ensure a high standard of quality on the application. 
 
