@@ -13,7 +13,7 @@
 Using the Bookstore application and supplied API documentation build a project in Python or Javascript that completes the following tasks:
 
 #### Task 1
-Build a testing suite that tests 100% of the [API](https://demoqa.com/swagger/)
+Build a testing suite that give 100% test coverage of the [API](https://demoqa.com/swagger/)
 
 #### Task 2
 Build a testing suite that tests the front end application of the [Bookstore](https://demoqa.com/books)
