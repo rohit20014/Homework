@@ -10,7 +10,7 @@
 2. Use the [Bookstore API Documentation](https://demoqa.com/swagger/)
 
 ### Explanation
-Using the Bookstore website and supplied API documentation given, build a project in Python or Javascript that completes the following tasks:
+Using the Bookstore application and supplied API documentation build a project in Python or Javascript that completes the following tasks:
 
 #### Task 1
 Build a testing suite that tests 100% of the [API](https://demoqa.com/swagger/)
