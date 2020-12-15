@@ -1,0 +1,12 @@
+{
+  "name": "Book_Store_API",
+  "version": "1.0.0",
+  "description": "Testing Book Store API's",
+  "scripts": {
+    "test": "newman run BookStoreAPI_collection.json -e BookStore_environment.json -r htmlextra"
+  },
+  "dependencies": {
+    "newman": "^5.2.1",
+    "newman-reporter-htmlextra": "^1.19.6"
+  }
+}

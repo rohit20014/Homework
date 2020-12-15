@@ -1,0 +1,59 @@
+{
+	"id": "acb56e3e-d453-4051-b080-b3915417680c",
+	"name": "BookStore",
+	"values": [
+		{
+			"key": "accountBaseURL",
+			"value": "https://demoqa.com/Account/v1",
+			"enabled": true
+		},
+		{
+			"key": "bookBaseURL",
+			"value": "https://demoqa.com/BookStore/v1",
+			"enabled": true
+		},
+		{
+			"key": "userName",
+			"value": "rohit123",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "Test@123",
+			"enabled": true
+		},
+		{
+			"key": "invalidUserName",
+			"value": "zzzUser",
+			"enabled": true
+		},
+		{
+			"key": "newUserName",
+			"value": "rohit1011",
+			"enabled": true
+		},
+		{
+			"key": "userID",
+			"value": "f942f9af-1e96-4b9a-81be-c3d21fa6f60d",
+			"enabled": true
+		},
+		{
+			"key": "invalidUserID",
+			"value": "8cfe-49f8-96f2-5b13ecba1e",
+			"enabled": true
+		},
+		{
+			"key": "validUserID",
+			"value": "27a4f214-2a84-4173-98f1-0c61aa0d2ca7",
+			"enabled": true
+		},
+		{
+			"key": "validUserName",
+			"value": "rohit111",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-12-15T00:07:25.589Z",
+	"_postman_exported_using": "Postman/7.36.0"
+}

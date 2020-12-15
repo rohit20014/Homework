@@ -1,0 +1,66 @@
+package Page;
+
+import Util.Helper;
+import Util.ReadPropFile;
+
+public class Constant {
+    ReadPropFile prop = new ReadPropFile();
+
+    public final String LOGIN_BUTTON = "login";
+    public final String NEW_USER_BUTTON = "newUser";
+    public final String REGISTER_ERROR_MESSAGE = "name";
+    public final String FIRST_NAME_LABEL = "firstname-label";
+    public final String FIRST_NAME_INPUT = "firstname";
+    public final String LAST_NAME_LABEL = "lastname-label";
+    public final String LAST_NAME_INPUT = "lastname";
+    public final String USERNAME_LABEL = "userName-label";
+    public final String USERNAME_INPUT = "userName";
+    public final String PASSWORD_LABEL = "password-label";
+    public final String PASSWORD_INPUT = "password";
+    public final String REGISTER_BUTTON = "register";
+    public final String BACK_TO_LOGIN = "gotologin";
+    public final String PROFILE_USER = "notLoggin-label";
+    public final String PROFILE_LOGIN_LINK = "//a[text()='login']";
+    public final String PROFILE_REGISTER_LINK = "//a[text()='register']";
+    public final String RECAPTCHA_INPUT = "//span[@id='recaptcha-anchor' and @aria-checked='false']";
+    public final String MAIN_HEADER = "//div[@class= 'main-header']";
+    public final String WELCOME_MESSAGE = "//div[contains(@style, 'margin-bottom')]";
+    public final String CAPTCHA_IFRAME = "//div[@id='g-recaptcha']/div/div/iframe";
+    public final String LOGIN_ERROR_MESSAGE = "name";
+    public final String LOGOUT_BUTTON = "//button[@id='submit' and contains(text(),'Log out')]";
+    public final String USERNAME_VALUE = "userName-value";
+    public final String NO_DATA_MESSAGE = "//div[@class='rt-noData']";
+    public final String SEARCH_BOOK_LABEL = "//label[@id='userName-label' and contains(text(), 'Book')]";
+    public final String PROFILE_USERNAME_LABEL = "//label[@id='userName-label' and contains(text(), 'User Name')]";
+    public final String SEARCH_BOX = "searchBox";
+    public final String SEARCH_ICON = "basic-addon2";
+    public final String TABLE_HEADER_LABEL = "//div[@class='rt-thead -header']";
+    public final String PREVIOUS_BUTTON = "//div[@class='-previous']/button";
+    public final String NEXT_BUTTON = "//div[@class='-next']/button";
+    public final String ROW_DROPDOWN = "//span[@class='select-wrap -pageSizeOptions']/select";
+    public final String ROW_NUMBERS = "//div[@class='rt-tbody']/div";
+    public final String PAGE_OPTIONS = "//span[@class='-pageInfo']";
+    public final String GO_TO_STORE_BUTTON = "gotoStore";
+    public final String DELETE_ACCOUNT_BUTTON = "//button[@id='submit' and contains(text(),'Delete Account')]";
+    public final String DELETE_ALL_BOOKS_BUTTON = "//div[@class='text-right button di']/button[@id='submit' and contains(text(),'Delete All Books')]";
+    public final String BOOK_TITLE = "//a[text()='" + prop.getPropertyValue("bookTitle") + "']";
+    public final String BOOK_TITLE_DELETE = "//a[text()='" + prop.getPropertyValue("bookTitle") + "']/../../../..//span[@title='Delete']";
+    public final String BOOK_TITLE2 = "//a[text()='" + prop.getPropertyValue("bookTitle2") + "']";
+    public final String BOOK_TITLE3 = "//a[text()='" + prop.getPropertyValue("bookTitle3") + "']";
+    public final String BOOK_ISBN = "//div[@id='ISBN-wrapper']//label[@id='userName-value']";
+    public final String BOOK_SUBTITLE = "//div[@id='subtitle-wrapper']//label[@id='userName-value']";
+    public final String BOOK_AUTHOR = "//div[@id='author-wrapper']//label[@id='userName-value']";
+    public final String BOOK_PUBLISHER = "//div[@id='publisher-wrapper']//label[@id='userName-value']";
+    public final String BOOK_PAGES = "//div[@id='pages-wrapper']//label[@id='userName-value']";
+    public final String BOOK_DESCRIPTION = "//div[@id='description-wrapper']//label[@id='userName-value']";
+    public final String BOOK_WEBSITE = "//div[@id='website-wrapper']//label[@id='userName-value']";
+    public final String ADD_TO_YOUR_COLLECTION_BUTTON = "//button[text()='Add To Your Collection']";
+    public final String BACK_TO_BOOK_STORE_BUTTON = "//button[text()='Back To Book Store']";
+    public final String DELETE_MODEL_HEADER = "//div[@class='modal-header']/div[@class='modal-title h4']";
+    public final String DELETE_MODEL_BODY = "//div[@class='modal-content']//div[@class='modal-body']";
+    public final String DELETE_MODEL_OK = "//div[@class='modal-content']//div[@class='modal-footer']/button[@id='closeSmallModal-ok']";
+    public final String DELETE_MODEL_CANCEL = "//div[@class='modal-content']//div[@class='modal-footer']/button[@id='closeSmallModal-cancel']";
+    public final String SEARCH_FIRST_RESULT_TITLE = "//div[@class='rt-tbody']/div[1]//span[@class='mr-2']/a";
+    public final String SEARCH_FIRST_RESULT_AUTHOR = "//div[@class='rt-tbody']/div[1]/div/div[3]";
+    public final String SEARCH_FIRST_RESULT_PUBLISHER = "//div[@class='rt-tbody']/div[1]/div/div[4]";
+}

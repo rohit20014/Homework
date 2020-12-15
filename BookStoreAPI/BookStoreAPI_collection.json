@@ -1,0 +1,1929 @@
+{
+	"info": {
+		"_postman_id": "4b034b55-2885-4016-a60a-49ee05a3c6da",
+		"name": "BookStoreAPI",
+		"description": "This is Book Store API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "Authorize valid User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93ec1d11-34eb-4099-8fa1-e6179db9fbf1",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 700ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(700);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response is True\", function () {\r",
+									"    pm.expect(jsonData).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/Authorized",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"Authorized"
+							]
+						},
+						"description": "This is for making user Authorized"
+					},
+					"response": []
+				},
+				{
+					"name": "Authorize Invalid User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "421f9079-342d-45c8-8f67-5e93519dbd99",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Not Found\", function () {\r",
+									"    pm.response.to.have.status(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response is User not found\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not found!\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{invalidUserName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/Authorized",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"Authorized"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token with valid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "78f30a3e-5c0c-4b82-b199-b45b8b699ecd",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"token\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"expires\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"status\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"result\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"token\",\r",
+									"    \"expires\",\r",
+									"    \"status\",\r",
+									"    \"result\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have status\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"Success\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have Result\", function () {\r",
+									"    pm.expect(jsonData.result).to.eql(\"User authorized successfully.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have token\", function () {\r",
+									"    pm.expect(jsonData.token).to.include(\"eyJh\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{userName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/GenerateToken",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"GenerateToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Token with invalid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "99607b33-aa70-45ba-9733-ed06877a8fd0",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"token\": {\r",
+									"      \"type\": \"null\"\r",
+									"    },\r",
+									"    \"expires\": {\r",
+									"      \"type\": \"null\"\r",
+									"    },\r",
+									"    \"status\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"result\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"token\",\r",
+									"    \"expires\",\r",
+									"    \"status\",\r",
+									"    \"result\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have status\", function () {\r",
+									"    pm.expect(jsonData.status).to.eql(\"Failed\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have Result\", function () {\r",
+									"    pm.expect(jsonData.result).to.eql(\"User authorization failed.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have token\", function () {\r",
+									"    pm.expect(jsonData.token).to.eql(null);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have expire\", function () {\r",
+									"    pm.expect(jsonData.expires).to.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{invalidUserName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/GenerateToken",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"GenerateToken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add New User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c76f9a9-57ef-4498-bc0c-955910c4b88e",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData.userID)\r",
+									"pm.environment.set(\"userID\", jsonData.userID);\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"userID\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"username\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {}\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userID\",\r",
+									"    \"username\",\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have username\", function () {\r",
+									"    pm.expect(jsonData.username).to.eql(pm.environment.get(\"newUserName\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{newUserName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/User",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Duplicate User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "09a22ebb-5af2-4d7d-912f-fe374024ba14",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 406\", function () {\r",
+									"    pm.response.to.have.status(406);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Not Acceptable\", function () {\r",
+									"    pm.response.to.have.status(\"Not Acceptable\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User exists!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"{{newUserName}}\",\r\n  \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{accountBaseURL}}/User",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete unauthorized user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1be989e4-1fa9-4550-9624-ca50eccbe72b",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{userName}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{validUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{validUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Invalid User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1da5efba-4cb0-46ff-879a-2f90680f1b79",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Id not correct!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{userName}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{invalidUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{invalidUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Authorized User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0dda0ab6-db11-4687-b9f2-2028c7562a98",
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have No Content\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{newUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{userID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{userID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get valid user details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fe1fb32e-49f5-4ac9-8473-42d0b1ccc61e",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"userId\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"username\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": {}\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userId\",\r",
+									"    \"username\",\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have username\", function () {\r",
+									"    pm.expect(jsonData.username).to.eql(pm.environment.get(\"validUserName\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have userId\", function () {\r",
+									"    pm.expect(jsonData.userId).to.eql(pm.environment.get(\"validUserID\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{validUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{validUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get invalid user details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d85a9e0a-eed5-45da-8d9b-6c8d98f5a4a0",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not found!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{invalidUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{invalidUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get valid user details By unauthorized user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9523d3e-1cc0-4388-b622-cd4769ecb79e",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{userName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{validUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{validUserID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get valid user details without authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ef62048c-906a-4742-a567-a205054596ea",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{accountBaseURL}}/User/{{validUserID}}",
+							"host": [
+								"{{accountBaseURL}}"
+							],
+							"path": [
+								"User",
+								"{{validUserID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84208a0f-53af-48ea-95c6-abef551dac83",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"isbn\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"subTitle\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"author\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"publish_date\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"publisher\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"pages\": {\r",
+									"              \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"description\": {\r",
+									"              \"type\": \"string\"\r",
+									"            },\r",
+									"            \"website\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"isbn\",\r",
+									"            \"title\",\r",
+									"            \"subTitle\",\r",
+									"            \"author\",\r",
+									"            \"publish_date\",\r",
+									"            \"publisher\",\r",
+									"            \"pages\",\r",
+									"            \"description\",\r",
+									"            \"website\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Books",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add books to user account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "45515702-b373-40b2-94e3-a1f3d49403be",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"books\": {\r",
+									"      \"type\": \"array\",\r",
+									"      \"items\": [\r",
+									"        {\r",
+									"          \"type\": \"object\",\r",
+									"          \"properties\": {\r",
+									"            \"isbn\": {\r",
+									"              \"type\": \"string\"\r",
+									"            }\r",
+									"          },\r",
+									"          \"required\": [\r",
+									"            \"isbn\"\r",
+									"          ]\r",
+									"        }\r",
+									"      ]\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"books\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Created\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{validUserID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n      \"isbn\": \"9781449325862\"\r\n    },\r\n    {\r\n       \"isbn\": \"9781449331818\" \r\n    },\r\n    {\r\n       \"isbn\": \"9781449337711\" \r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Books",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add books as invalid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7714072d-4431-4cae-a451-5b12abd85439",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Id not correct!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{invalidUserID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n      \"isbn\": \"9781449325862\"\r\n    },\r\n    {\r\n       \"isbn\": \"9781449331818\" \r\n    },\r\n    {\r\n       \"isbn\": \"9781449337711\" \r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Books",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add books with authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "26af63a5-67dd-491e-aff1-caa18543f97c",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{validUserID}}\",\r\n  \"collectionOfIsbns\": [\r\n    {\r\n      \"isbn\": \"9781449325862\"\r\n    },\r\n    {\r\n       \"isbn\": \"9781449331818\" \r\n    },\r\n    {\r\n       \"isbn\": \"9781449337711\" \r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Books",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book by isbn for valid user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "129544cf-5930-4c2f-b8a1-82bd91c4d60a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ccbca7d4-69db-4245-92a6-b8d110ce3794",
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have No Content\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isbn\": \"9781449325862\",\r\n  \"userId\": \"{{validUserID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Book",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book by isbn (not in user collection) for valid user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fb1c635a-4b45-4274-a44d-47bb9617a47a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d55a1b0f-e182-445d-8cdc-28a8e89a7b01",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"ISBN supplied is not available in User's Collection!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isbn\": \"9781449325862\",\r\n  \"userId\": \"{{validUserID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Book",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book by isbn for invalid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f8ea882d-65c8-4d02-aa60-032b861903ae",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Id not correct!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isbn\": \"9781442\",\r\n  \"userId\": \"{{invalidUserID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Book",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete book by isbn for unauthorized user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38dcf3e6-ca3a-458d-aad1-29e633db41be",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have \", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isbn\": \"9781449325862\",\r\n  \"userId\": \"{{validUserID}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Book",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book by isbn for valid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36e1e09c-1a6e-425e-959b-b7bf60b129e0",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"ISBN supplied is not available in User's Collection!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{validUserID}}\",\r\n  \"isbn\": \"9781449325862\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Books/9781593277574",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books",
+								"9781593277574"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book by isbn for unauthorizing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9f6d7555-5623-42ae-8ba6-ad661244c6aa",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have \", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": \"{{validUserID}}\",\r\n  \"isbn\": \"9781449325862\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{bookBaseURL}}/Books/9781593277574",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books",
+								"9781593277574"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete books for valid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d5e912f-e67a-4f0f-af3e-b4922bfd2bd9",
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have No Content\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Books?UserId={{validUserID}}",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "{{validUserID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete books for invalid user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "29a92c2d-4774-4451-beaf-a8e79f544ab8",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Id not correct!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{validUserName}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Books?UserId={{invalidUserID}}",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "{{invalidUserID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete books by unauthorizing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "32a7037f-a093-4716-a75d-9136f6eba8cb",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have \", function () {\r",
+									"    pm.response.to.have.status(\"Unauthorized\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User not authorized!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Books?UserId={{validUserID}}",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Books"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "{{validUserID}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get book details by valid isbn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7709fd5b-1435-45f9-9f7f-e51e017f9d6b",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"isbn\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"title\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"subTitle\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"author\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"publish_date\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"publisher\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"pages\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"description\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"website\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"isbn\",\r",
+									"    \"title\",\r",
+									"    \"subTitle\",\r",
+									"    \"author\",\r",
+									"    \"publish_date\",\r",
+									"    \"publisher\",\r",
+									"    \"pages\",\r",
+									"    \"description\",\r",
+									"    \"website\"\r",
+									"  ]\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is validation', function () {\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have OK\", function () {\r",
+									"    pm.response.to.have.status(\"OK\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Book?ISBN=9781449325862",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							],
+							"query": [
+								{
+									"key": "ISBN",
+									"value": "9781449325862"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get book details by invalid isbn",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "770b13d7-6cb1-47f0-ad23-fd5d7cb151c4",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is have Bad Request\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify Response have message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"ISBN supplied is not available in Books Collection!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{bookBaseURL}}/Book?ISBN=814425862",
+							"host": [
+								"{{bookBaseURL}}"
+							],
+							"path": [
+								"Book"
+							],
+							"query": [
+								{
+									"key": "ISBN",
+									"value": "814425862"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

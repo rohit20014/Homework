@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Book Store">
+    <test thread-count="5" name="BookStore">
+        <classes>
+            <class name="BookStoreLogin" />
+            <class name="LandingPage" />
+            <class name="BookStoreApp" />
+            <class name="BookStoreProfile" />
+            <class name="NonAuthorizedUser" />
+        </classes>
+    </test> <!-- BookStore -->
+</suite> <!-- Book Store -->
